@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Predict Fuel Consumption</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Predict Fuel Consumption">
+  <meta name="author" content="FW.Tang">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Predict Fuel Consumption</h1>
+    <h2>24 Apr 2014</h2>
+    <p>FW.Tang<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This is a simple function for you to predict the fuel consumption of your car in miles per gallon (mpg).</p>
+
+<p>The prediction model takes two inputs to predict the mpg.</p>
+
+<p>A scattered plot of mtcars data is presented to give a visual idea of mpg with different weight and transimission type.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>About the Simple Prediction Function</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li><p>User is required to enter two inputs:</p>
+
+<ul>
+<li>transmission type (ie. automatic or manual)</li>
+<li>weight of the car in lb/1000 (eg. slide to 3.25 if the weight is 3250lb )</li>
+</ul></li>
+<li><p>Click on &quot;Submit&quot; button.</p></li>
+<li><p>The predicted miles per gallon will be shown in &quot;Predicted MPG&quot; field.</p></li>
+<li><p>The predicted value will also be shown as &quot;Yellow&quot; dot in the chart.</p></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Simple Prediction Function</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A subset of mtcars data is extracted, ie. mpg (miles per gallon), 
+am (transmission type; automatic=0, manual=1) and wt (weight of the car in lb/1000).</p>
+
+<pre><code class="r">data(mtcars)
+df_cars&lt;-subset(mtcars, select=c(&quot;mpg&quot;, &quot;am&quot;, &quot;wt&quot;))
+df_cars$am&lt;-as.factor(df_cars$am)
+</code></pre>
+
+<p>PredictMPG takes in am and wt as input and prediction is made by calling predict function.</p>
+
+<pre><code class="r">predictMPG &lt;- function(am, weight){
+        newIn&lt;-data.frame(as.factor(am), weight)
+        colnames(newIn)&lt;-c(&quot;am&quot;, &quot;wt&quot;)
+        fit&lt;-lm(mpg~am+wt, data=df_cars)
+        prediction&lt;-predict(fit, newIn, interval=&quot;prediction&quot;)
+        prediction[1]
+} 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Simple Prediction Function (cont&#39;n)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Run the predictMPG() function by supplying am=0 and wt=3</p>
+
+<pre><code class="r">am&lt;-0
+wt&lt;-3
+predictMPG(am, wt)
+</code></pre>
+
+<pre><code>## [1] 21.26312
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Use the Function</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The simple function is availble at <a href="https://fwtang.shinyapps.io/PredictMPG/">https://fwtang.shinyapps.io/PredictMPG/</a>.</p>
+
+<p>Have Fun!</p>
+
+<h3>Thank you.</h3>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='About the Simple Prediction Function'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Simple Prediction Function'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Simple Prediction Function (cont&#39;n)'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Use the Function'>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
